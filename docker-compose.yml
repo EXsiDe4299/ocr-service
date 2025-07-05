@@ -1,0 +1,30 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.7-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  redis:
+    image: redis:8.0.2-alpine
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbitmq
+      - redis
+
+  celery-worker:
+    build: .
+    depends_on:
+      - rabbitmq
+      - redis
+      - app
+    command: celery -A core.celery_app.celery_app worker -l info
