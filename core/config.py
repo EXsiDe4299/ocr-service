@@ -28,6 +28,10 @@ class OCRImageConfig(BaseModel):
     allowed_image_content_types: set[str] = {"image/jpeg", "image/png", "image/webp"}
 
 
+class CustomCeleryTaskStates(BaseModel):
+    ACCEPTED: str = "ACCEPTED"
+
+
 class CeleryAppConfig(BaseModel):
     main: str = "ocr"
     rabbitmq_user: str
@@ -42,6 +46,8 @@ class CeleryAppConfig(BaseModel):
     worker_concurrency: int = 6
     worker_prefetch_multiplier: int = 0
     result_expires: int = 3600
+
+    custom_states: CustomCeleryTaskStates = CustomCeleryTaskStates()
 
     @computed_field
     @property
