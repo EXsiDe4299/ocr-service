@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class UploadImageResponseScheme(BaseModel):
-    filename: str
+    filename: str | None = None
     task_id: str
 
 
