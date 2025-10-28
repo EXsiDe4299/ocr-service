@@ -64,6 +64,13 @@ class RedisConfig(BaseModel):
     db: int
     decode_responses: bool = True
 
+    @computed_field
+    @property
+    def url(self) -> RedisDsn:
+        return RedisDsn(
+            url=f"redis://{self.host}:{self.port}/{self.db}?decode_responses={self.decode_responses}"
+        )
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
