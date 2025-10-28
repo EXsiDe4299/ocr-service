@@ -1,4 +1,4 @@
-from typing import Literal, Any
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -11,7 +11,6 @@ class UploadImageResponseScheme(BaseModel):
 
 class TaskResultResponseScheme(BaseModel):
     task_id: str
-    state: Literal["PENDING", "SUCCESS", "STARTED", "FAILURE"] | None = None
     status: str | None = None
     message: str | None = None
     error: str | None = None
