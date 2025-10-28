@@ -23,7 +23,7 @@ async def upload_image_endpoint(
     image_file: UploadFile = Depends(image_validation_dependency),
 ):
     image_data = await image_file.read()
-    task = process_image.delay(image_file.filename, image_data)
+    task = process_image.delay(image_data)
     return UploadImageResponseScheme(
         filename=image_file.filename,
         task_id=task.id,
