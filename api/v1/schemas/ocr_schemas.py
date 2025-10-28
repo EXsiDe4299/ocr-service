@@ -11,10 +11,5 @@ class UploadImageResponseScheme(BaseModel):
 
 class TaskResultResponseScheme(BaseModel):
     task_id: str
-    state: Literal[
-        "PENDING",
-        "SUCCESS",
-        "STARTED",
-        "FAILURE",
-    ]
-    result: Any
+    state: Literal["PENDING", "SUCCESS", "STARTED", "FAILURE"] | None = None
+    result: Any | None = None
