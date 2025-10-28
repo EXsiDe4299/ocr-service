@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Any
 
 from pydantic import BaseModel
 
@@ -16,4 +16,4 @@ class TaskResultResponseScheme(BaseModel):
         "STARTED",
         "FAILURE",
     ]
-    result: dict | None
+    result: Any
