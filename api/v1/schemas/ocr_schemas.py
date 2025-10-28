@@ -6,6 +6,8 @@ from pydantic import BaseModel
 class UploadImageResponseScheme(BaseModel):
     filename: str | None = None
     task_id: str
+    status: str | None = None
+    message: str | None = None
 
 
 class TaskResultResponseScheme(BaseModel):
