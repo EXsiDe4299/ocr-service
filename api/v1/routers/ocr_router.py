@@ -1,7 +1,7 @@
 import hashlib
 
 from celery.result import AsyncResult
-from fastapi import APIRouter, UploadFile, Depends
+from fastapi import APIRouter, UploadFile, Depends, HTTPException
 from redis.asyncio import Redis
 from starlette import status
 
@@ -65,9 +65,25 @@ async def upload_image_endpoint(
 )
 async def get_task_endpoint(task_id: str):
     task_result = AsyncResult(task_id, app=celery_app)
-    result = TaskResultResponseScheme(
-        task_id=task_id,
-        state=task_result.state,
-        result=task_result.result,
-    )
-    return result
+    if task_result.status == settings.celery.custom_states.ACCEPTED:
+        return TaskResultResponseScheme(
+            task_id=task_id,
+            status=task_result.status,
+            message="Image processing...",
+        )
+    if task_result.failed():
+        return TaskResultResponseScheme(
+            task_id=task_id,
+            status=task_result.status,
+            message="An error occurred",
+            error=str(task_result.result),
+        )
+    if task_result.successful():
+        return TaskResultResponseScheme(
+            task_id=task_id,
+            status=task_result.status,
+            message="Image processed successfully",
+            result=task_result.result,
+        )
+
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
