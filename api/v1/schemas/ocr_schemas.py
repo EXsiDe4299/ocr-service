@@ -11,7 +11,7 @@ class UploadImageResponseScheme(BaseModel):
 
 class TaskResultResponseScheme(BaseModel):
     task_id: str
-    status: str | None = None
-    message: str | None = None
+    status: str
+    message: str
     error: str | None = None
     result: Any | None = None
