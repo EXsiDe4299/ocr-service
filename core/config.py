@@ -1,4 +1,4 @@
-from pydantic import BaseModel, AmqpDsn, RedisDsn
+from pydantic import BaseModel, AmqpDsn, RedisDsn, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -43,12 +43,14 @@ class CeleryAppConfig(BaseModel):
     worker_prefetch_multiplier: int = 0
     result_expires: int = 3600
 
+    @computed_field
     @property
     def broker(self) -> AmqpDsn:
         return AmqpDsn(
             url=f"amqp://{self.rabbitmq_user}:{self.rabbitmq_password}@{self.rabbitmq_host}:{self.rabbitmq_port}//",
         )
 
+    @computed_field
     @property
     def backend(self) -> RedisDsn:
         return RedisDsn(
