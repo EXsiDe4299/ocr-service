@@ -39,8 +39,8 @@ class CeleryAppConfig(BaseModel):
     redis_port: int
     redis_db: int
 
-    worker_concurrency: int = 2
-    worker_prefetch_multiplier: int = 1
+    worker_concurrency: int = 6
+    worker_prefetch_multiplier: int = 0
     result_expires: int = 3600
 
     @property
