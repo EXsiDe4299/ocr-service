@@ -1,5 +1,3 @@
-from typing import Any
-
 from pydantic import BaseModel
 
 
@@ -14,4 +12,4 @@ class TaskResultResponseScheme(BaseModel):
     status: str
     message: str
     error: str | None = None
-    result: Any | None = None
+    result: str | None = None
