@@ -62,6 +62,7 @@ async def upload_image_endpoint(
     settings.ocr_router.get_task_endpoint_path,
     status_code=status.HTTP_200_OK,
     response_model=TaskResultResponseScheme,
+    response_model_exclude_none=True,
 )
 async def get_task_endpoint(task_id: str):
     task_result = AsyncResult(task_id, app=celery_app)
