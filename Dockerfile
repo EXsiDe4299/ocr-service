@@ -1,5 +1,7 @@
 FROM python:3.12.3-bookworm
 
+ENV PYTHONBUFFERED=1
+
 WORKDIR /app
 
 RUN apt-get update \
