@@ -5,8 +5,8 @@ from core.config import settings
 
 celery_app = Celery(
     settings.celery.main,
-    broker=str(settings.celery.broker),
-    backend=str(settings.celery.backend),
+    broker=str(settings.rabbitmq.url),
+    backend=str(settings.redis.backend_url),
     include=["api.v1.tasks.ocr_tasks"],
     worker_concurrency=settings.celery.worker_concurrency,
     worker_prefetch_multiplier=settings.celery.worker_prefetch_multiplier,

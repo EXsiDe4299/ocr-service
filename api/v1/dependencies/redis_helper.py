@@ -14,4 +14,4 @@ class RedisHelper:
         return Redis(connection_pool=self.pool)
 
 
-redis_helper: RedisHelper = RedisHelper(url=str(settings.redis.url))
+redis_helper: RedisHelper = RedisHelper(url=str(settings.redis.cache_url))
