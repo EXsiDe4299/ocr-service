@@ -31,4 +31,4 @@ services:
       - rabbitmq
       - redis
       - app
-    command: celery -A core.celery_app.celery_app worker -l info
+    command: uv run celery -A core.celery_app.celery_app worker -l info
